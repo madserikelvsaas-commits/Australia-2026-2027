@@ -397,14 +397,14 @@ body {
 
 <nav class="jump" id="jump" aria-label="Hopp til">
   <div class="jump-row">
-    <span class="jump-lbl">Reise</span>
+    <a class="jump-lbl" href="#reiserute">Reise</a>
     <a href="#utreise">✈ Utreise</a>
     <a href="#seoul">🇰🇷 Seoul</a>
     <a href="#australia">🇦🇺 Australia</a>
     <a href="#beijing">🇨🇳 Beijing</a>
     <a href="#hjemreise">↩ Hjemreise</a>
     <span class="jump-sep"></span>
-    <span class="jump-lbl">Bo &amp; oppleve</span>
+    <a class="jump-lbl" href="#guide">Bo &amp; oppleve</a>
     <a href="#sunshine">🎄 Sunshine Coast</a>
     <a href="#brisbane">⛴ Brisbane</a>
     <a href="#goldcoast">🎆 Gold Coast</a>
@@ -412,7 +412,7 @@ body {
   </div>
 </nav>
 
-<div class="route-head">
+<div class="route-head" id="reiserute">
   <div class="eyebrow">Fly, mellomlandinger og overnatting</div>
   <h2>Reiserute</h2>
 </div>
@@ -1374,13 +1374,15 @@ body {
 .jump a.on{background:var(--sand);border-color:var(--sand);color:#11141f;font-weight:600}
 .jump-lbl{flex-shrink:0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);font-weight:600;padding:0 2px 0 4px}
 .jump-sep{flex-shrink:0;width:1px;height:20px;background:var(--line);margin:0 4px}
-#utreise,#australia,#hjemreise,#seoul,#beijing,#sunshine,#brisbane,#goldcoast,#byron,#guide{scroll-margin-top:64px}
+#reiserute,#utreise,#australia,#hjemreise,#seoul,#beijing,#sunshine,#brisbane,#goldcoast,#byron,#guide{scroll-margin-top:64px}
+.jump a.jump-lbl{background:transparent;border-color:transparent;color:var(--sand);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:6px 6px}
+.jump a.jump-lbl:hover{border-color:var(--sand)}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .to-top{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:61;width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--fg);font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s}
 .to-top.show{opacity:1;pointer-events:auto}
 @media (max-width:500px){.jump{margin:0 -16px 24px;padding:8px 16px}}
-@media (min-width:760px){.jump-row{flex-wrap:wrap;justify-content:center;row-gap:6px;max-width:900px;overflow:visible}#utreise,#australia,#hjemreise,#seoul,#beijing,#sunshine,#brisbane,#goldcoast,#byron,#guide{scroll-margin-top:108px}}
+@media (min-width:760px){.jump-row{flex-wrap:wrap;justify-content:center;row-gap:6px;max-width:900px;overflow:visible}#reiserute,#utreise,#australia,#hjemreise,#seoul,#beijing,#sunshine,#brisbane,#goldcoast,#byron,#guide{scroll-margin-top:108px}}
 </style>
 <button class="to-top" id="toTop" aria-label="Til toppen">↑</button>
 <div class="lb" id="lb" hidden><img alt=""></div>
@@ -1393,11 +1395,12 @@ html{scroll-behavior:smooth}
     if(e.target.closest('#lb')) lb.hidden=true;
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape') lb.hidden=true;});
-  var links=[].slice.call(document.querySelectorAll('#jump a'));
+  var links=[].slice.call(document.querySelectorAll('#jump a:not(.jump-lbl)'));
+  [].forEach.call(document.querySelectorAll('#jump a'),function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href')); if(!t) return; e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'});});});
   var row=document.querySelector('.jump-row'), top=document.getElementById('toTop');
   function setActive(){
     var nav=document.getElementById('jump'); var y=window.scrollY+(nav?nav.offsetHeight:60)+40, cur=null;
-    links.forEach(function(a){var t=document.querySelector(a.getAttribute('href')); if(t && t.getBoundingClientRect().top+window.scrollY<=y) cur=a;});
+    var best=-1e9; links.forEach(function(a){var t=document.querySelector(a.getAttribute('href')); if(!t) return; var ty=t.getBoundingClientRect().top+window.scrollY; if(ty<=y && ty>best){best=ty; cur=a;}});
     links.forEach(function(a){a.classList.toggle('on',a===cur);});
     if(cur && row){var r=cur.offsetLeft-row.clientWidth/2+cur.offsetWidth/2; row.scrollTo({left:Math.max(0,r),behavior:'smooth'});}
     top.classList.toggle('show',window.scrollY>600);
