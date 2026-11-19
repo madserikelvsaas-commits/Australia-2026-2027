@@ -1380,7 +1380,9 @@ body {
 .jump-lbl{flex-shrink:0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);font-weight:600;padding:0 2px 0 4px}
 .jump-sep{flex-shrink:0;width:1px;height:20px;background:var(--line);margin:0 4px}
 #reiserute,#utreise,#australia,#hjemreise,#seoul,#beijing,#sunshine,#brisbane,#goldcoast,#byron,#guide{scroll-margin-top:64px}
-.jump a.jump-lbl{background:transparent;border-color:transparent;color:var(--sand);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:6px 6px}
+.jump a.jump-lbl{background:transparent;border:1.5px solid var(--sand);color:var(--sand);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:6px 12px}
+.jump a.jump-lbl::after{content:" ↓";letter-spacing:0}
+.jump a.jump-lbl.on{background:var(--sand);color:#11141f}
 .jump a.jump-lbl:hover{border-color:var(--sand)}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -1400,7 +1402,7 @@ html{scroll-behavior:smooth}
     if(e.target.closest('#lb')) lb.hidden=true;
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape') lb.hidden=true;});
-  var links=[].slice.call(document.querySelectorAll('#jump a:not(.jump-lbl)'));
+  var links=[].slice.call(document.querySelectorAll('#jump a'));
   [].forEach.call(document.querySelectorAll('#jump a'),function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href')); if(!t) return; e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'});});});
   var row=document.querySelector('.jump-row'), top=document.getElementById('toTop');
   function setActive(){
