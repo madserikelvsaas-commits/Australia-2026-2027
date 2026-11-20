@@ -1388,13 +1388,10 @@ body {
 .jump a{flex-shrink:0;white-space:nowrap;text-decoration:none;font-size:12px;font-weight:500;color:var(--fg2);background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:6px 12px;transition:background .15s,color .15s,border-color .15s}
 .jump a:hover{color:var(--fg);border-color:var(--sand)}
 .jump a.on{background:var(--sand);border-color:var(--sand);color:#11141f;font-weight:600}
-.jump-lbl{flex-shrink:0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);font-weight:600;padding:0 2px 0 4px}
 .jump-sep{flex-shrink:0;width:1px;height:20px;background:var(--line);margin:0 4px}
 #reiserute,#utreise,#australia,#hjemreise,#seoul,#beijing,#sunshine,#brisbane,#goldcoast,#byron,#guide{scroll-margin-top:64px}
-.jump a.jump-lbl{background:transparent;border:1.5px solid var(--sand);color:var(--sand);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:6px 12px}
 .jump a.jump-lbl::after{content:" ↓";letter-spacing:0}
-.jump a.jump-lbl.on{background:var(--sand);color:#11141f}
-.jump a.jump-lbl:hover{border-color:var(--sand)}
+
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .to-top{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:61;width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--fg);font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s}
